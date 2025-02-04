@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Data Homestay</h1>
+    <h1 class="h3 mb-0 text-gray-800">Data Titik Kumpul Evakuasi</h1>
     <a href="?halaman=evakuasi&aksi=tambah_evakuasi"
       class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-home fa-sm text-white-50"></i>
       Tambah Data</a>
