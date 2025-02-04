@@ -1,20 +1,21 @@
 {
     "name": "Tikum Evakuasi",
-    "start_url": ".",
+    "start_url": "http://localhost/tikum/admin/?halaman=peta",
     "display": "standalone",
+    "theme_color": "#f8fcfa",
     "background_color": "#f8fcfa",
-    "description": "Deskripsi aplikasi Anda di sini.",
-    "icons": [
+        "icons": [
         {
-            "src": "icons/icon.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "icons/icon.png",
-            "sizes": "512x512",
+            "src": "http://localhost/tikum/assets/img/tikum1.png",
             "type": "image/png",
-            "purpose":"maskable"
+            "sizes": "192x192"
+        },
+        
+        {
+            "src": "http://localhost/tikum/assets/img/tikum2.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose" : "maskable"
         }
     ]
 }
