@@ -3,7 +3,7 @@ include 'backend/insert_evakuasi.php';
 ?>
 <div class="container-fluid">
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Tambah Data Homestay</h1>
+    <h1 class="h3 mb-0 text-gray-800">Tambah Data Titik Kumpul Evakuasi</h1>
     <a href="?halaman=evakuasi" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm"><i
         class="fas fa-back fa-sm text-white-50"></i> Kembali</a>
   </div>
@@ -11,7 +11,7 @@ include 'backend/insert_evakuasi.php';
     <div class="col-xl-12 col-lg-7">
       <div class="card shadow mb-12">
         <div class="card-header py-12">
-          <h6 class="m-0 font-weight-bold text-primary">Data Homestay</h6>
+          <h6 class="m-0 font-weight-bold text-primary">Data Titik Kumpul Evakuasi</h6>
         </div>
         <div class="card-body">
           <div class="col-md-9">
