@@ -1,57 +1,63 @@
-const cacheName = "v1";
+// Nama cache yang digunakan untuk menyimpan file
+const cacheName = "v2"; // Ganti versi cache saat ada perubahan besar
+
+// Daftar file yang akan disimpan dalam cache saat pertama kali diinstall
 const preCache = [
-    "/",
-    "/index.php",
-    "../assets/css/sb-admin-2.min.css",
-    "../assets/vendor/fontawesome-free/css/all.min.css",
-    "../assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
-    "../assets/vendor/jquery/jquery.min.js"
+    "/", // Halaman utama
+    "/index.php", // Halaman utama PHP (fallback jika offline)
+    "/assets/css/sb-admin-2.min.css", // CSS utama
+    "/assets/vendor/fontawesome-free/css/all.min.css", // Font Awesome
+    "/assets/vendor/bootstrap/js/bootstrap.bundle.min.js", // Bootstrap JS
+    "/assets/vendor/jquery/jquery.min.js" // jQuery
 ];
 
-self.addEventListener("install", (e) => {
-    console.log("Service worker installed");
-
-    e.waitUntil(
+// Event install: Menyimpan file dalam cache saat pertama kali service worker diinstall
+self.addEventListener("install", (event) => {
+    console.log("Service Worker: Installing...");
+    
+    event.waitUntil(
         (async () => {
             const cache = await caches.open(cacheName);
-            await cache.addAll(preCache);
+            try {
+                await cache.addAll(preCache); // Menyimpan daftar file ke cache
+                console.log("Pre-cache sukses!");
+            } catch (error) {
+                console.error("Pre-cache gagal:", error);
+            }
         })()
     );
 });
 
-self.addEventListener("activate", event => {
-    console.log("Service worker ready");
+// Event activate: Menghapus cache lama saat ada update
+self.addEventListener("activate", (event) => {
+    console.log("Service Worker: Activated");
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(
-                cacheNames.filter(cacheName => cacheName !== 'v1').map(cacheName => caches.delete(cacheName))
+                cacheNames.filter(name => name !== cacheName).map(name => caches.delete(name)) // Hapus cache lama
             );
         })
     );
+    self.clients.claim(); // Memastikan SW langsung mengontrol halaman tanpa reload
 });
 
-self.addEventListener("fetch", (e) => {
-    e.respondWith(
-        (async () => {
-            const cache = await caches.open(cacheName);
-            const resCache = await cache.match(e.request);
+// Event fetch: Mengambil data dari cache atau jaringan
+self.addEventListener("fetch", (event) => {
+    event.respondWith(
+        caches.open(cacheName).then(cache => {
+            return cache.match(event.request).then(cachedResponse => {
+                // Ambil data terbaru dari server jika tersedia
+                const fetchPromise = fetch(event.request)
+                    .then(networkResponse => {
+                        if (networkResponse && networkResponse.ok) {
+                            cache.put(event.request, networkResponse.clone()); // Simpan versi terbaru ke cache
+                        }
+                        return networkResponse;
+                    })
+                    .catch(() => cachedResponse || caches.match("/index.php")); // Jika offline, gunakan cache terakhir
 
-            if (resCache) {
-                return resCache;
-            }
-
-            try {
-                const res = await fetch(e.request);
-
-                if (res && res.ok) {
-                    const clonedRes = res.clone();
-                    cache.put(e.request, clonedRes);
-                }
-
-                return res;
-            } catch (error) {
-                console.log(error);
-            }
-        })()
+                return cachedResponse || fetchPromise;
+            });
+        })
     );
 });
