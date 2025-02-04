@@ -4,6 +4,7 @@
 - API Map <a href="https://www.mapbox.com/">Mapbox</a> 
 - PHP Native (MVC)
 - Database SQL (Phpmyadmin)
+- Menerapkan PWA
 
 # Konfigurasi
 1. Database Terletak Pada folder : tikum/koneksi/database/db_evakuasi.sql
