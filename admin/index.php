@@ -36,7 +36,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-icon">
-          <img src="../assets/img/icon.png" alt="Icon" style="width: 60px; height: 60px;">
+          <img src="../assets/img/tikum.png" alt="Icon" style="width: 60px; height: 60px;">
         </div>
         <div class="sidebar-brand-text mx-3">Titik Kumpul Evakuasi<sup></sup></div>
       </a>
@@ -165,10 +165,23 @@
 
   <script src="../assets/js/demo/datatables-demo.js"></script>
   <script>
+    window.addEventListener("load", function () {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').then(function (registration) {
+          console.log('Service Worker registered with scope:', registration.scope);
+        }).catch(function (error) {
+          console.log('Service Worker registration failed:', error);
+        });
+      }
+    });
+  </script>
+  <script>
     $(document).ready(function () {
       $('#dataTables-example').dataTable();
     });
   </script>
+
+
 
 </body>
 
