@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta name="theme-color" content="#f8fafc" />
-  <link rel="manifest" href="manifest.jsons">
+  <link rel="manifest" href="manifest.json" />
 
   <title>Dashboard</title>
 
